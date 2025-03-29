@@ -1,0 +1,67 @@
+=== Toxicity Detection Model Training Report ===
+
+Data path: E:\Thesis\molda\csv files\17000datas.csv
+Output directory: train_models
+
+Model Configuration:
+  TEXT_COLUMN: comment
+  TOXICITY_COLUMN: toxicity_level
+  CATEGORY_COLUMNS: ['insult', 'profanity', 'threat', 'identity_hate']
+  MAX_CHARS: 300
+  USE_LANGUAGE_DETECTION: True
+  USE_HYBRID_VOCABULARY: True
+  ALPHABET: abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'"/\|_@#$%^&*~`+ =<>()[]{}ABCDEFGHIJKLMNOPQRSTUVWXYZ
+  MAX_VOCAB_SIZE: 550
+  MIN_CHAR_COUNT: 2
+  CHAR_EMB_DIM: 64
+  LSTM_HIDDEN_DIM: 96
+  DROPOUT_RATE: 0.35
+  CNN_CONFIGS: [{'large_features': 256, 'small_features': 64, 'kernel': 7, 'pool': 3, 'batch_norm': True}, {'large_features': 256, 'small_features': 64, 'kernel': 5, 'pool': 3, 'batch_norm': True}, {'large_features': 256, 'small_features': 64, 'kernel': 3, 'pool': 3, 'batch_norm': True}, {'large_features': 256, 'small_features': 64, 'kernel': 3, 'pool': 3, 'batch_norm': True}]
+  BATCH_SIZE: 32
+  LEARNING_RATE: 0.0005
+  WEIGHT_DECAY: 0.0001
+  NUM_EPOCHS: 40
+  EARLY_STOPPING_PATIENCE: 6
+  FOCAL_ALPHA: [2.5, 1.0, 1.0]
+  CATEGORY_WEIGHTS: [2.0, 1.5, 2.0, 2.5]
+  CATEGORY_THRESHOLDS: [0.65, 0.7, 0.65, 0.65]
+  CATEGORY_LOSS_SCALE: 1.2
+  USE_GRADIENT_CLIPPING: True
+  GRADIENT_CLIP_VALUE: 1.0
+  NUM_WORKERS: 4
+  SEED: 42
+  USE_ONE_CYCLE_LR: True
+  USE_LABEL_SMOOTHING: True
+  LABEL_SMOOTHING: 0.1
+  MC_DROPOUT_SAMPLES: 30
+  UNCERTAINTY_THRESHOLD: 0.08
+  MIN_FEEDBACK_FOR_RETRAINING: 12
+  FEEDBACK_RETRAIN_EPOCHS: 15
+  FEEDBACK_LEARNING_RATE: 0.0001
+  LANGUAGE_THRESHOLDS: {'en': {'toxicity': 0.75, 'insult': 0.75, 'profanity': 0.8, 'threat': 0.7, 'identity_hate': 0.65, 'severity': 0.55}, 'tl': {'toxicity': 0.85, 'insult': 0.8, 'profanity': 0.9, 'threat': 0.75, 'identity_hate': 0.75, 'severity': 0.6}}
+  SAFE_WORD_SETTINGS: {'enable_safe_word_features': True, 'safe_word_threshold_boost': 0.08, 'max_threshold': 0.95, 'benign_phrases': []}
+  DATA_PATH: E:\Thesis\molda\csv files\17000datas.csv
+  PROFANITY_LIST_PATH: E:\Thesis\molda\csv files\extended_profanity_list.csv
+  SAFE_WORDS_PATH: E:\Thesis\molda\csv files\safeword,phrases,mixed.csv
+  OUTPUT_DIR: train_models
+  USE_ADVANCED_FEATURES: True
+  COUNT_SPECIAL_CHARS: True
+  COUNT_REPEATED_CHARS: True
+  DETECT_EDUCATIONAL_CONTENT: True
+  USE_TEXT_STATS: True
+  as_dict: <classmethod(<function Config.as_dict at 0x000002A31E080680>)>
+
+Training Results:
+  Best validation loss: 0.5912 at epoch 18
+  Best validation toxicity accuracy: 0.9422
+  Best validation category F1: 0.6895
+
+Test Results:
+  Test accuracy: 0.9408
+  Test category F1: 0.6603
+
+OOD Evaluation:
+  OOD accuracy: 0.9536
+  OOD category F1: 0.6605
+  Accuracy gap: -0.0122 (-1.3% drop)
+  Category F1 gap: 0.0014 (0.2% drop)

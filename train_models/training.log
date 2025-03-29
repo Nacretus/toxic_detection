@@ -1,0 +1,516 @@
+2025-03-29 20:13:39,921 - INFO - Starting toxicity detection model training pipeline
+2025-03-29 20:13:39,921 - INFO - Data path: E:\Thesis\molda\csv files\17000datas.csv
+2025-03-29 20:13:39,921 - INFO - Output directory: train_models
+2025-03-29 20:13:39,990 - INFO - Loading data...
+2025-03-29 20:13:39,990 - INFO - Loading data from E:\Thesis\molda\csv files\17000datas.csv...
+2025-03-29 20:13:40,042 - INFO - Loaded 37268 rows from E:\Thesis\molda\csv files\17000datas.csv
+2025-03-29 20:13:40,046 - INFO - 
+Toxicity level distribution:
+2025-03-29 20:13:40,049 - INFO -   Level 0: 12952 examples (34.8%)
+2025-03-29 20:13:40,050 - INFO -   Level 1: 12951 examples (34.8%)
+2025-03-29 20:13:40,050 - INFO -   Level 2: 11365 examples (30.5%)
+2025-03-29 20:13:40,050 - INFO - 
+Category distribution:
+2025-03-29 20:13:40,050 - INFO -   insult: 10141 positive examples (27.2%)
+2025-03-29 20:13:40,050 - INFO -   profanity: 10205 positive examples (27.4%)
+2025-03-29 20:13:40,050 - INFO -   threat: 6372 positive examples (17.1%)
+2025-03-29 20:13:40,051 - INFO -   identity_hate: 5332 positive examples (14.3%)
+2025-03-29 20:13:40,053 - INFO - Creating data loaders...
+2025-03-29 20:13:40,079 - INFO - Split data into 22360 training, 7454 validation, and 7454 test examples
+2025-03-29 20:13:40,079 - INFO - Preprocessing texts...
+2025-03-29 20:13:40,303 - INFO - Extracting toxicity features...
+2025-03-29 20:14:07,789 - INFO - Adding fixed alphabet with 95 characters
+2025-03-29 20:14:07,790 - INFO - After adding fixed alphabet: 99 characters
+2025-03-29 20:14:07,790 - INFO - Building vocabulary from training data...
+2025-03-29 20:14:08,529 - INFO - Added 79 new characters/n-grams from training data
+2025-03-29 20:14:08,530 - INFO - Final vocabulary size: 178 tokens
+2025-03-29 20:14:08,530 - INFO - Character coverage: nan% of all character occurrences
+2025-03-29 20:14:08,531 - INFO - Detecting languages for texts...
+2025-03-29 20:14:08,804 - INFO - Language distribution: {'tl': 10050, 'en': 12310}
+2025-03-29 20:14:08,804 - INFO - Preprocessing texts...
+2025-03-29 20:14:08,882 - INFO - Extracting toxicity features...
+2025-03-29 20:14:17,923 - INFO - Detecting languages for texts...
+2025-03-29 20:14:18,026 - INFO - Language distribution: {'en': 4148, 'tl': 3306}
+2025-03-29 20:14:18,026 - INFO - Preprocessing texts...
+2025-03-29 20:14:18,106 - INFO - Extracting toxicity features...
+2025-03-29 20:14:27,146 - INFO - Detecting languages for texts...
+2025-03-29 20:14:27,240 - INFO - Language distribution: {'tl': 3344, 'en': 4110}
+2025-03-29 20:14:27,241 - INFO - Creating model...
+2025-03-29 20:14:27,241 - INFO - Using device: cuda
+2025-03-29 20:14:27,512 - INFO - Training classifier chain model...
+2025-03-29 20:14:27,512 - INFO - Training enhanced classifier chain model for 40 epochs
+2025-03-29 20:14:27,512 - INFO - Parameters: lr=0.0005, weight_decay=0.0001, early_stopping_patience=6, label_smoothing=0.1
+2025-03-29 20:15:43,395 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:15:43,395 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:15:43,395 - INFO - Category 0: positive predictions: 208.0, positive labels: 2059.0
+2025-03-29 20:15:43,402 - INFO - Category 0 F1: 0.0768
+2025-03-29 20:15:43,402 - INFO - Category 1: positive predictions: 0.0, positive labels: 2050.0
+2025-03-29 20:15:43,406 - INFO - Category 1 F1: 0.0000
+2025-03-29 20:15:43,406 - INFO - Category 2: positive predictions: 17.0, positive labels: 1296.0
+2025-03-29 20:15:43,409 - INFO - Category 2 F1: 0.0030
+2025-03-29 20:15:43,410 - INFO - Category 3: positive predictions: 0.0, positive labels: 1051.0
+2025-03-29 20:15:43,413 - INFO - Category 3 F1: 0.0000
+2025-03-29 20:15:43,413 - INFO - Category F1 scores: [0.07675341861490957, 0.0, 0.0030464584920030465, 0.0], Macro F1: 0.0199
+2025-03-29 20:15:43,415 - INFO - Epoch 1/40 - Train Loss: 2.8495, Val Loss: 1.8650, Val Toxicity Acc: 0.3873, Val Category F1: 0.0199, LR: 0.000020, Time: 74.53s
+2025-03-29 20:15:43,424 - INFO - New best model found at epoch 1
+2025-03-29 20:16:51,750 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:16:51,750 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:16:51,751 - INFO - Category 0: positive predictions: 301.0, positive labels: 2059.0
+2025-03-29 20:16:51,754 - INFO - Category 0 F1: 0.1398
+2025-03-29 20:16:51,755 - INFO - Category 1: positive predictions: 305.0, positive labels: 2050.0
+2025-03-29 20:16:51,759 - INFO - Category 1 F1: 0.1902
+2025-03-29 20:16:51,760 - INFO - Category 2: positive predictions: 0.0, positive labels: 1296.0
+2025-03-29 20:16:51,763 - INFO - Category 2 F1: 0.0000
+2025-03-29 20:16:51,763 - INFO - Category 3: positive predictions: 0.0, positive labels: 1051.0
+2025-03-29 20:16:51,767 - INFO - Category 3 F1: 0.0000
+2025-03-29 20:16:51,767 - INFO - Category F1 scores: [0.13983050847457626, 0.19023354564755837, 0.0, 0.0], Macro F1: 0.0825
+2025-03-29 20:16:51,768 - INFO - Epoch 2/40 - Train Loss: 2.1999, Val Loss: 1.5415, Val Toxicity Acc: 0.5420, Val Category F1: 0.0825, LR: 0.000028, Time: 68.34s
+2025-03-29 20:16:51,780 - INFO - New best model found at epoch 2
+2025-03-29 20:18:09,269 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:18:09,269 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:18:09,269 - INFO - Category 0: positive predictions: 663.0, positive labels: 2059.0
+2025-03-29 20:18:09,273 - INFO - Category 0 F1: 0.2101
+2025-03-29 20:18:09,273 - INFO - Category 1: positive predictions: 426.0, positive labels: 2050.0
+2025-03-29 20:18:09,277 - INFO - Category 1 F1: 0.2100
+2025-03-29 20:18:09,277 - INFO - Category 2: positive predictions: 0.0, positive labels: 1296.0
+2025-03-29 20:18:09,281 - INFO - Category 2 F1: 0.0000
+2025-03-29 20:18:09,281 - INFO - Category 3: positive predictions: 0.0, positive labels: 1051.0
+2025-03-29 20:18:09,285 - INFO - Category 3 F1: 0.0000
+2025-03-29 20:18:09,285 - INFO - Category F1 scores: [0.210139603232917, 0.210016155088853, 0.0, 0.0], Macro F1: 0.1050
+2025-03-29 20:18:09,286 - INFO - Epoch 3/40 - Train Loss: 1.8198, Val Loss: 1.4418, Val Toxicity Acc: 0.5608, Val Category F1: 0.1050, LR: 0.000052, Time: 77.50s
+2025-03-29 20:18:09,297 - INFO - New best model found at epoch 3
+2025-03-29 20:19:28,382 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:19:28,382 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:19:28,382 - INFO - Category 0: positive predictions: 286.0, positive labels: 2059.0
+2025-03-29 20:19:28,385 - INFO - Category 0 F1: 0.1612
+2025-03-29 20:19:28,386 - INFO - Category 1: positive predictions: 996.0, positive labels: 2050.0
+2025-03-29 20:19:28,389 - INFO - Category 1 F1: 0.3690
+2025-03-29 20:19:28,389 - INFO - Category 2: positive predictions: 0.0, positive labels: 1296.0
+2025-03-29 20:19:28,393 - INFO - Category 2 F1: 0.0000
+2025-03-29 20:19:28,393 - INFO - Category 3: positive predictions: 0.0, positive labels: 1051.0
+2025-03-29 20:19:28,397 - INFO - Category 3 F1: 0.0000
+2025-03-29 20:19:28,397 - INFO - Category F1 scores: [0.16119402985074627, 0.3690085357846356, 0.0, 0.0], Macro F1: 0.1326
+2025-03-29 20:19:28,398 - INFO - Epoch 4/40 - Train Loss: 1.4810, Val Loss: 1.4055, Val Toxicity Acc: 0.5844, Val Category F1: 0.1326, LR: 0.000090, Time: 79.10s
+2025-03-29 20:19:28,408 - INFO - New best model found at epoch 4
+2025-03-29 20:20:51,688 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:20:51,688 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:20:51,688 - INFO - Category 0: positive predictions: 1686.0, positive labels: 2059.0
+2025-03-29 20:20:51,693 - INFO - Category 0 F1: 0.5458
+2025-03-29 20:20:51,694 - INFO - Category 1: positive predictions: 2242.0, positive labels: 2050.0
+2025-03-29 20:20:51,697 - INFO - Category 1 F1: 0.6780
+2025-03-29 20:20:51,697 - INFO - Category 2: positive predictions: 0.0, positive labels: 1296.0
+2025-03-29 20:20:51,701 - INFO - Category 2 F1: 0.0000
+2025-03-29 20:20:51,701 - INFO - Category 3: positive predictions: 2.0, positive labels: 1051.0
+2025-03-29 20:20:51,706 - INFO - Category 3 F1: 0.0038
+2025-03-29 20:20:51,707 - INFO - Category F1 scores: [0.5457943925233645, 0.6780055917986952, 0.0, 0.003798670465337132], Macro F1: 0.3069
+2025-03-29 20:20:51,707 - INFO - Epoch 5/40 - Train Loss: 1.1198, Val Loss: 1.1503, Val Toxicity Acc: 0.7413, Val Category F1: 0.3069, LR: 0.000140, Time: 83.30s
+2025-03-29 20:20:51,718 - INFO - New best model found at epoch 5
+2025-03-29 20:22:12,232 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:22:12,233 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:22:12,233 - INFO - Category 0: positive predictions: 1650.0, positive labels: 2059.0
+2025-03-29 20:22:12,238 - INFO - Category 0 F1: 0.6951
+2025-03-29 20:22:12,238 - INFO - Category 1: positive predictions: 1195.0, positive labels: 2050.0
+2025-03-29 20:22:12,243 - INFO - Category 1 F1: 0.6028
+2025-03-29 20:22:12,243 - INFO - Category 2: positive predictions: 468.0, positive labels: 1296.0
+2025-03-29 20:22:12,247 - INFO - Category 2 F1: 0.5306
+2025-03-29 20:22:12,248 - INFO - Category 3: positive predictions: 115.0, positive labels: 1051.0
+2025-03-29 20:22:12,252 - INFO - Category 3 F1: 0.1955
+2025-03-29 20:22:12,252 - INFO - Category F1 scores: [0.695066055540577, 0.602773497688752, 0.5306122448979591, 0.1955403087478559], Macro F1: 0.5060
+2025-03-29 20:22:12,252 - INFO - Epoch 6/40 - Train Loss: 0.8951, Val Loss: 0.7416, Val Toxicity Acc: 0.8966, Val Category F1: 0.5060, LR: 0.000198, Time: 80.53s
+2025-03-29 20:22:12,262 - INFO - New best model found at epoch 6
+2025-03-29 20:23:28,735 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:23:28,735 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:23:28,735 - INFO - Category 0: positive predictions: 1356.0, positive labels: 2059.0
+2025-03-29 20:23:28,740 - INFO - Category 0 F1: 0.6577
+2025-03-29 20:23:28,740 - INFO - Category 1: positive predictions: 1252.0, positive labels: 2050.0
+2025-03-29 20:23:28,745 - INFO - Category 1 F1: 0.6184
+2025-03-29 20:23:28,746 - INFO - Category 2: positive predictions: 1066.0, positive labels: 1296.0
+2025-03-29 20:23:28,751 - INFO - Category 2 F1: 0.9026
+2025-03-29 20:23:28,752 - INFO - Category 3: positive predictions: 508.0, positive labels: 1051.0
+2025-03-29 20:23:28,758 - INFO - Category 3 F1: 0.6504
+2025-03-29 20:23:28,758 - INFO - Category F1 scores: [0.6576866764275257, 0.6184130829800121, 0.9026248941574937, 0.6504169339320077], Macro F1: 0.7073
+2025-03-29 20:23:28,759 - INFO - Epoch 7/40 - Train Loss: 0.7940, Val Loss: 0.7073, Val Toxicity Acc: 0.9076, Val Category F1: 0.7073, LR: 0.000260, Time: 76.50s
+2025-03-29 20:23:28,776 - INFO - New best model found at epoch 7
+2025-03-29 20:24:43,858 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:24:43,859 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:24:43,859 - INFO - Category 0: positive predictions: 1159.0, positive labels: 2059.0
+2025-03-29 20:24:43,865 - INFO - Category 0 F1: 0.6227
+2025-03-29 20:24:43,865 - INFO - Category 1: positive predictions: 1174.0, positive labels: 2050.0
+2025-03-29 20:24:43,870 - INFO - Category 1 F1: 0.6328
+2025-03-29 20:24:43,871 - INFO - Category 2: positive predictions: 1142.0, positive labels: 1296.0
+2025-03-29 20:24:43,876 - INFO - Category 2 F1: 0.9368
+2025-03-29 20:24:43,876 - INFO - Category 3: positive predictions: 667.0, positive labels: 1051.0
+2025-03-29 20:24:43,880 - INFO - Category 3 F1: 0.7648
+2025-03-29 20:24:43,880 - INFO - Category F1 scores: [0.6227470478558111, 0.6327543424317618, 0.9368334700574241, 0.7648428405122235], Macro F1: 0.7393
+2025-03-29 20:24:43,880 - INFO - Epoch 8/40 - Train Loss: 0.7360, Val Loss: 0.6853, Val Toxicity Acc: 0.9159, Val Category F1: 0.7393, LR: 0.000322, Time: 75.10s
+2025-03-29 20:24:43,894 - INFO - New best model found at epoch 8
+2025-03-29 20:25:59,196 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:25:59,197 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:25:59,197 - INFO - Category 0: positive predictions: 828.0, positive labels: 2059.0
+2025-03-29 20:25:59,201 - INFO - Category 0 F1: 0.5431
+2025-03-29 20:25:59,201 - INFO - Category 1: positive predictions: 429.0, positive labels: 2050.0
+2025-03-29 20:25:59,205 - INFO - Category 1 F1: 0.3284
+2025-03-29 20:25:59,205 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:25:59,209 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:25:59,210 - INFO - Category 3: positive predictions: 639.0, positive labels: 1051.0
+2025-03-29 20:25:59,213 - INFO - Category 3 F1: 0.7515
+2025-03-29 20:25:59,214 - INFO - Category F1 scores: [0.5431243505368896, 0.3283582089552239, 0.9372693726937269, 0.7514792899408284], Macro F1: 0.6401
+2025-03-29 20:25:59,214 - INFO - Epoch 9/40 - Train Loss: 0.7190, Val Loss: 0.6271, Val Toxicity Acc: 0.9170, Val Category F1: 0.6401, LR: 0.000380, Time: 75.32s
+2025-03-29 20:25:59,225 - INFO - New best model found at epoch 9
+2025-03-29 20:27:13,726 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:27:13,726 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:27:13,727 - INFO - Category 0: positive predictions: 903.0, positive labels: 2059.0
+2025-03-29 20:27:13,730 - INFO - Category 0 F1: 0.5739
+2025-03-29 20:27:13,731 - INFO - Category 1: positive predictions: 128.0, positive labels: 2050.0
+2025-03-29 20:27:13,734 - INFO - Category 1 F1: 0.1157
+2025-03-29 20:27:13,734 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:27:13,739 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:27:13,739 - INFO - Category 3: positive predictions: 674.0, positive labels: 1051.0
+2025-03-29 20:27:13,743 - INFO - Category 3 F1: 0.7803
+2025-03-29 20:27:13,743 - INFO - Category F1 scores: [0.5739365293720459, 0.11570247933884296, 0.9372693726937269, 0.7802898550724638], Macro F1: 0.6018
+2025-03-29 20:27:13,744 - INFO - Epoch 10/40 - Train Loss: 0.6820, Val Loss: 0.6002, Val Toxicity Acc: 0.9298, Val Category F1: 0.6018, LR: 0.000430, Time: 74.52s
+2025-03-29 20:27:13,755 - INFO - New best model found at epoch 10
+2025-03-29 20:28:29,233 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:28:29,233 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:28:29,234 - INFO - Category 0: positive predictions: 773.0, positive labels: 2059.0
+2025-03-29 20:28:29,237 - INFO - Category 0 F1: 0.5169
+2025-03-29 20:28:29,238 - INFO - Category 1: positive predictions: 366.0, positive labels: 2050.0
+2025-03-29 20:28:29,241 - INFO - Category 1 F1: 0.2914
+2025-03-29 20:28:29,241 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:28:29,245 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:28:29,245 - INFO - Category 3: positive predictions: 633.0, positive labels: 1051.0
+2025-03-29 20:28:29,248 - INFO - Category 3 F1: 0.7482
+2025-03-29 20:28:29,249 - INFO - Category F1 scores: [0.5169491525423728, 0.29139072847682124, 0.9372693726937269, 0.7482185273159144], Macro F1: 0.6235
+2025-03-29 20:28:29,249 - INFO - Epoch 11/40 - Train Loss: 0.6654, Val Loss: 0.6323, Val Toxicity Acc: 0.9238, Val Category F1: 0.6235, LR: 0.000468, Time: 75.49s
+2025-03-29 20:28:29,249 - INFO - Validation loss did not improve. Patience: 1/6
+2025-03-29 20:29:44,397 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:29:44,397 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:29:44,397 - INFO - Category 0: positive predictions: 1019.0, positive labels: 2059.0
+2025-03-29 20:29:44,403 - INFO - Category 0 F1: 0.6199
+2025-03-29 20:29:44,403 - INFO - Category 1: positive predictions: 219.0, positive labels: 2050.0
+2025-03-29 20:29:44,408 - INFO - Category 1 F1: 0.1860
+2025-03-29 20:29:44,408 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:29:44,413 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:29:44,413 - INFO - Category 3: positive predictions: 686.0, positive labels: 1051.0
+2025-03-29 20:29:44,418 - INFO - Category 3 F1: 0.7876
+2025-03-29 20:29:44,418 - INFO - Category F1 scores: [0.6198830409356725, 0.18598501542529744, 0.9372693726937269, 0.7875647668393783], Macro F1: 0.6327
+2025-03-29 20:29:44,418 - INFO - Epoch 12/40 - Train Loss: 0.6477, Val Loss: 0.6398, Val Toxicity Acc: 0.9353, Val Category F1: 0.6327, LR: 0.000492, Time: 75.17s
+2025-03-29 20:29:44,419 - INFO - Validation loss did not improve. Patience: 2/6
+2025-03-29 20:30:59,425 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:30:59,425 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:30:59,426 - INFO - Category 0: positive predictions: 1202.0, positive labels: 2059.0
+2025-03-29 20:30:59,429 - INFO - Category 0 F1: 0.6765
+2025-03-29 20:30:59,429 - INFO - Category 1: positive predictions: 851.0, positive labels: 2050.0
+2025-03-29 20:30:59,434 - INFO - Category 1 F1: 0.5315
+2025-03-29 20:30:59,434 - INFO - Category 2: positive predictions: 1135.0, positive labels: 1296.0
+2025-03-29 20:30:59,437 - INFO - Category 2 F1: 0.9329
+2025-03-29 20:30:59,437 - INFO - Category 3: positive predictions: 772.0, positive labels: 1051.0
+2025-03-29 20:30:59,440 - INFO - Category 3 F1: 0.8327
+2025-03-29 20:30:59,441 - INFO - Category F1 scores: [0.6764796074823674, 0.531540847983454, 0.9329494035376388, 0.8326933625891388], Macro F1: 0.7434
+2025-03-29 20:30:59,441 - INFO - Epoch 13/40 - Train Loss: 0.6325, Val Loss: 0.6023, Val Toxicity Acc: 0.9435, Val Category F1: 0.7434, LR: 0.000500, Time: 75.02s
+2025-03-29 20:30:59,441 - INFO - Validation loss did not improve. Patience: 3/6
+2025-03-29 20:32:14,365 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:32:14,365 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:32:14,366 - INFO - Category 0: positive predictions: 920.0, positive labels: 2059.0
+2025-03-29 20:32:14,370 - INFO - Category 0 F1: 0.5881
+2025-03-29 20:32:14,370 - INFO - Category 1: positive predictions: 475.0, positive labels: 2050.0
+2025-03-29 20:32:14,374 - INFO - Category 1 F1: 0.3509
+2025-03-29 20:32:14,375 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:32:14,378 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:32:14,378 - INFO - Category 3: positive predictions: 673.0, positive labels: 1051.0
+2025-03-29 20:32:14,381 - INFO - Category 3 F1: 0.7784
+2025-03-29 20:32:14,382 - INFO - Category F1 scores: [0.5881168177240685, 0.35089108910891087, 0.9372693726937269, 0.7784222737819024], Macro F1: 0.6637
+2025-03-29 20:32:14,382 - INFO - Epoch 14/40 - Train Loss: 0.6212, Val Loss: 0.5977, Val Toxicity Acc: 0.9371, Val Category F1: 0.6637, LR: 0.000498, Time: 74.94s
+2025-03-29 20:32:14,393 - INFO - New best model found at epoch 14
+2025-03-29 20:33:29,114 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:33:29,114 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:33:29,115 - INFO - Category 0: positive predictions: 864.0, positive labels: 2059.0
+2025-03-29 20:33:29,118 - INFO - Category 0 F1: 0.5570
+2025-03-29 20:33:29,118 - INFO - Category 1: positive predictions: 160.0, positive labels: 2050.0
+2025-03-29 20:33:29,122 - INFO - Category 1 F1: 0.1403
+2025-03-29 20:33:29,122 - INFO - Category 2: positive predictions: 1133.0, positive labels: 1296.0
+2025-03-29 20:33:29,125 - INFO - Category 2 F1: 0.9329
+2025-03-29 20:33:29,126 - INFO - Category 3: positive predictions: 653.0, positive labels: 1051.0
+2025-03-29 20:33:29,128 - INFO - Category 3 F1: 0.7664
+2025-03-29 20:33:29,129 - INFO - Category F1 scores: [0.5569620253164558, 0.14027149321266966, 0.9328941951420338, 0.7664319248826291], Macro F1: 0.5991
+2025-03-29 20:33:29,129 - INFO - Epoch 15/40 - Train Loss: 0.6030, Val Loss: 0.6272, Val Toxicity Acc: 0.9340, Val Category F1: 0.5991, LR: 0.000494, Time: 74.74s
+2025-03-29 20:33:29,129 - INFO - Validation loss did not improve. Patience: 1/6
+2025-03-29 20:34:44,025 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:34:44,026 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:34:44,026 - INFO - Category 0: positive predictions: 990.0, positive labels: 2059.0
+2025-03-29 20:34:44,030 - INFO - Category 0 F1: 0.6133
+2025-03-29 20:34:44,030 - INFO - Category 1: positive predictions: 522.0, positive labels: 2050.0
+2025-03-29 20:34:44,033 - INFO - Category 1 F1: 0.3818
+2025-03-29 20:34:44,034 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:34:44,037 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:34:44,037 - INFO - Category 3: positive predictions: 714.0, positive labels: 1051.0
+2025-03-29 20:34:44,040 - INFO - Category 3 F1: 0.8045
+2025-03-29 20:34:44,040 - INFO - Category F1 scores: [0.6133158412594293, 0.38180404354587877, 0.9372693726937269, 0.8045325779036827], Macro F1: 0.6842
+2025-03-29 20:34:44,041 - INFO - Epoch 16/40 - Train Loss: 0.6049, Val Loss: 0.6103, Val Toxicity Acc: 0.9371, Val Category F1: 0.6842, LR: 0.000486, Time: 74.91s
+2025-03-29 20:34:44,041 - INFO - Validation loss did not improve. Patience: 2/6
+2025-03-29 20:35:59,476 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:35:59,476 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:35:59,476 - INFO - Category 0: positive predictions: 926.0, positive labels: 2059.0
+2025-03-29 20:35:59,479 - INFO - Category 0 F1: 0.5896
+2025-03-29 20:35:59,479 - INFO - Category 1: positive predictions: 458.0, positive labels: 2050.0
+2025-03-29 20:35:59,481 - INFO - Category 1 F1: 0.3437
+2025-03-29 20:35:59,481 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:35:59,487 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:35:59,487 - INFO - Category 3: positive predictions: 671.0, positive labels: 1051.0
+2025-03-29 20:35:59,491 - INFO - Category 3 F1: 0.7758
+2025-03-29 20:35:59,492 - INFO - Category F1 scores: [0.5896147403685092, 0.3437001594896332, 0.9372693726937269, 0.775842044134727], Macro F1: 0.6616
+2025-03-29 20:35:59,492 - INFO - Epoch 17/40 - Train Loss: 0.6026, Val Loss: 0.5913, Val Toxicity Acc: 0.9398, Val Category F1: 0.6616, LR: 0.000475, Time: 75.45s
+2025-03-29 20:35:59,506 - INFO - New best model found at epoch 17
+2025-03-29 20:37:15,736 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:37:15,736 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:37:15,736 - INFO - Category 0: positive predictions: 1146.0, positive labels: 2059.0
+2025-03-29 20:37:15,742 - INFO - Category 0 F1: 0.6590
+2025-03-29 20:37:15,742 - INFO - Category 1: positive predictions: 451.0, positive labels: 2050.0
+2025-03-29 20:37:15,742 - INFO - Category 1 F1: 0.3391
+2025-03-29 20:37:15,742 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:37:15,750 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:37:15,750 - INFO - Category 3: positive predictions: 748.0, positive labels: 1051.0
+2025-03-29 20:37:15,755 - INFO - Category 3 F1: 0.8227
+2025-03-29 20:37:15,756 - INFO - Category F1 scores: [0.6589703588143525, 0.3390643742502999, 0.9372693726937269, 0.8226792662590328], Macro F1: 0.6895
+2025-03-29 20:37:15,756 - INFO - Epoch 18/40 - Train Loss: 0.5877, Val Loss: 0.5912, Val Toxicity Acc: 0.9422, Val Category F1: 0.6895, LR: 0.000462, Time: 76.25s
+2025-03-29 20:37:15,765 - INFO - New best model found at epoch 18
+2025-03-29 20:38:31,040 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:38:31,040 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:38:31,040 - INFO - Category 0: positive predictions: 1145.0, positive labels: 2059.0
+2025-03-29 20:38:31,045 - INFO - Category 0 F1: 0.6579
+2025-03-29 20:38:31,045 - INFO - Category 1: positive predictions: 704.0, positive labels: 2050.0
+2025-03-29 20:38:31,050 - INFO - Category 1 F1: 0.4728
+2025-03-29 20:38:31,050 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:38:31,055 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:38:31,055 - INFO - Category 3: positive predictions: 756.0, positive labels: 1051.0
+2025-03-29 20:38:31,059 - INFO - Category 3 F1: 0.8312
+2025-03-29 20:38:31,059 - INFO - Category F1 scores: [0.6579275905118602, 0.47276688453159044, 0.9372693726937269, 0.8312119535141118], Macro F1: 0.7248
+2025-03-29 20:38:31,059 - INFO - Epoch 19/40 - Train Loss: 0.5745, Val Loss: 0.6127, Val Toxicity Acc: 0.9416, Val Category F1: 0.7248, LR: 0.000445, Time: 75.29s
+2025-03-29 20:38:31,059 - INFO - Validation loss did not improve. Patience: 1/6
+2025-03-29 20:39:46,409 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:39:46,409 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:39:46,410 - INFO - Category 0: positive predictions: 1074.0, positive labels: 2059.0
+2025-03-29 20:39:46,413 - INFO - Category 0 F1: 0.6505
+2025-03-29 20:39:46,413 - INFO - Category 1: positive predictions: 809.0, positive labels: 2050.0
+2025-03-29 20:39:46,416 - INFO - Category 1 F1: 0.5170
+2025-03-29 20:39:46,416 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:39:46,421 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:39:46,422 - INFO - Category 3: positive predictions: 675.0, positive labels: 1051.0
+2025-03-29 20:39:46,425 - INFO - Category 3 F1: 0.7810
+2025-03-29 20:39:46,426 - INFO - Category F1 scores: [0.6504947334822854, 0.5169639734172786, 0.9372693726937269, 0.7809965237543453], Macro F1: 0.7214
+2025-03-29 20:39:46,426 - INFO - Epoch 20/40 - Train Loss: 0.5689, Val Loss: 0.6117, Val Toxicity Acc: 0.9411, Val Category F1: 0.7214, LR: 0.000427, Time: 75.37s
+2025-03-29 20:39:46,426 - INFO - Validation loss did not improve. Patience: 2/6
+2025-03-29 20:41:01,064 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:41:01,064 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:41:01,065 - INFO - Category 0: positive predictions: 660.0, positive labels: 2059.0
+2025-03-29 20:41:01,068 - INFO - Category 0 F1: 0.4678
+2025-03-29 20:41:01,068 - INFO - Category 1: positive predictions: 178.0, positive labels: 2050.0
+2025-03-29 20:41:01,073 - INFO - Category 1 F1: 0.1535
+2025-03-29 20:41:01,074 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:41:01,078 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:41:01,078 - INFO - Category 3: positive predictions: 775.0, positive labels: 1051.0
+2025-03-29 20:41:01,083 - INFO - Category 3 F1: 0.8390
+2025-03-29 20:41:01,084 - INFO - Category F1 scores: [0.46781905112173594, 0.1535008976660682, 0.9372693726937269, 0.8389923329682366], Macro F1: 0.5994
+2025-03-29 20:41:01,084 - INFO - Epoch 21/40 - Train Loss: 0.5613, Val Loss: 0.5940, Val Toxicity Acc: 0.9402, Val Category F1: 0.5994, LR: 0.000406, Time: 74.66s
+2025-03-29 20:41:01,084 - INFO - Validation loss did not improve. Patience: 3/6
+2025-03-29 20:42:15,074 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:42:15,074 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:42:15,074 - INFO - Category 0: positive predictions: 1049.0, positive labels: 2059.0
+2025-03-29 20:42:15,078 - INFO - Category 0 F1: 0.6403
+2025-03-29 20:42:15,078 - INFO - Category 1: positive predictions: 442.0, positive labels: 2050.0
+2025-03-29 20:42:15,081 - INFO - Category 1 F1: 0.3331
+2025-03-29 20:42:15,081 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:42:15,084 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:42:15,085 - INFO - Category 3: positive predictions: 766.0, positive labels: 1051.0
+2025-03-29 20:42:15,088 - INFO - Category 3 F1: 0.8365
+2025-03-29 20:42:15,088 - INFO - Category F1 scores: [0.6402831402831403, 0.3330658105939005, 0.9372693726937269, 0.8365437534397359], Macro F1: 0.6868
+2025-03-29 20:42:15,088 - INFO - Epoch 22/40 - Train Loss: 0.5573, Val Loss: 0.6184, Val Toxicity Acc: 0.9424, Val Category F1: 0.6868, LR: 0.000383, Time: 74.00s
+2025-03-29 20:42:15,088 - INFO - Validation loss did not improve. Patience: 4/6
+2025-03-29 20:43:29,658 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:43:29,658 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:43:29,659 - INFO - Category 0: positive predictions: 1145.0, positive labels: 2059.0
+2025-03-29 20:43:29,662 - INFO - Category 0 F1: 0.6698
+2025-03-29 20:43:29,663 - INFO - Category 1: positive predictions: 1090.0, positive labels: 2050.0
+2025-03-29 20:43:29,667 - INFO - Category 1 F1: 0.6153
+2025-03-29 20:43:29,667 - INFO - Category 2: positive predictions: 1136.0, positive labels: 1296.0
+2025-03-29 20:43:29,671 - INFO - Category 2 F1: 0.9342
+2025-03-29 20:43:29,671 - INFO - Category 3: positive predictions: 779.0, positive labels: 1051.0
+2025-03-29 20:43:29,675 - INFO - Category 3 F1: 0.8426
+2025-03-29 20:43:29,675 - INFO - Category F1 scores: [0.6697877652933832, 0.6152866242038216, 0.9342105263157895, 0.8426229508196721], Macro F1: 0.7655
+2025-03-29 20:43:29,676 - INFO - Epoch 23/40 - Train Loss: 0.5488, Val Loss: 0.6256, Val Toxicity Acc: 0.9441, Val Category F1: 0.7655, LR: 0.000358, Time: 74.59s
+2025-03-29 20:43:29,676 - INFO - Validation loss did not improve. Patience: 5/6
+2025-03-29 20:44:44,327 - INFO - Category predictions shape: (7454, 4, 1)
+2025-03-29 20:44:44,327 - INFO - Category labels shape: (7454, 4)
+2025-03-29 20:44:44,328 - INFO - Category 0: positive predictions: 1122.0, positive labels: 2059.0
+2025-03-29 20:44:44,331 - INFO - Category 0 F1: 0.6589
+2025-03-29 20:44:44,331 - INFO - Category 1: positive predictions: 707.0, positive labels: 2050.0
+2025-03-29 20:44:44,334 - INFO - Category 1 F1: 0.4701
+2025-03-29 20:44:44,334 - INFO - Category 2: positive predictions: 1143.0, positive labels: 1296.0
+2025-03-29 20:44:44,337 - INFO - Category 2 F1: 0.9373
+2025-03-29 20:44:44,338 - INFO - Category 3: positive predictions: 801.0, positive labels: 1051.0
+2025-03-29 20:44:44,342 - INFO - Category 3 F1: 0.8499
+2025-03-29 20:44:44,343 - INFO - Category F1 scores: [0.6589122917321597, 0.470076169749728, 0.9372693726937269, 0.8498920086393088], Macro F1: 0.7290
+2025-03-29 20:44:44,343 - INFO - Epoch 24/40 - Train Loss: 0.5418, Val Loss: 0.6046, Val Toxicity Acc: 0.9459, Val Category F1: 0.7290, LR: 0.000333, Time: 74.67s
+2025-03-29 20:44:44,343 - INFO - Validation loss did not improve. Patience: 6/6
+2025-03-29 20:44:44,343 - INFO - Early stopping triggered at epoch 24
+2025-03-29 20:44:44,344 - INFO - Loading best model from epoch 18
+2025-03-29 20:44:45,027 - INFO - Evaluating model on test set...
+2025-03-29 20:44:45,027 - INFO - Evaluating model...
+2025-03-29 20:44:45,027 - INFO - Using Monte Carlo dropout with 20 samples
+2025-03-29 20:59:26,751 - INFO - 
+Evaluation Results:
+2025-03-29 20:59:26,751 - INFO - Toxicity Classification Accuracy: 0.9408
+2025-03-29 20:59:26,753 - INFO - Category Macro-Average F1: 0.6603
+2025-03-29 20:59:26,753 - INFO - 
+Confusion Matrix (rows=true, columns=predicted):
+2025-03-29 20:59:26,753 - INFO -               | Pred Not Toxic | Pred Toxic | Pred Very Toxic |
+2025-03-29 20:59:26,755 - INFO - --------------+----------------+------------+-----------------|
+2025-03-29 20:59:26,755 - INFO - True Not Toxic |           2517 |         69 |               5 |
+2025-03-29 20:59:26,755 - INFO - True Toxic     |             95 |       2442 |              53 |
+2025-03-29 20:59:26,755 - INFO - True Very Toxic|              5 |        214 |            2054 |
+2025-03-29 20:59:26,755 - INFO - 
+Toxicity Class Metrics:
+2025-03-29 20:59:26,755 - INFO -   Not Toxic:
+2025-03-29 20:59:26,755 - INFO -     Precision: 0.9618
+2025-03-29 20:59:26,755 - INFO -     Recall: 0.9714
+2025-03-29 20:59:26,757 - INFO -     F1-score: 0.9666
+2025-03-29 20:59:26,757 - INFO -   Toxic:
+2025-03-29 20:59:26,757 - INFO -     Precision: 0.8961
+2025-03-29 20:59:26,757 - INFO -     Recall: 0.9429
+2025-03-29 20:59:26,758 - INFO -     F1-score: 0.9189
+2025-03-29 20:59:26,758 - INFO -   Very Toxic:
+2025-03-29 20:59:26,758 - INFO -     Precision: 0.9725
+2025-03-29 20:59:26,759 - INFO -     Recall: 0.9037
+2025-03-29 20:59:26,759 - INFO -     F1-score: 0.9368
+2025-03-29 20:59:26,759 - INFO - 
+Category Metrics:
+2025-03-29 20:59:26,759 - INFO -   Insult:
+2025-03-29 20:59:26,759 - INFO -     Precision: 0.9080
+2025-03-29 20:59:26,759 - INFO -     Recall: 0.4044
+2025-03-29 20:59:26,759 - INFO -     F1-score: 0.5596
+2025-03-29 20:59:26,759 - INFO -   Profanity:
+2025-03-29 20:59:26,759 - INFO -     Precision: 0.9295
+2025-03-29 20:59:26,759 - INFO -     Recall: 0.1809
+2025-03-29 20:59:26,759 - INFO -     F1-score: 0.3028
+2025-03-29 20:59:26,759 - INFO -   Threat:
+2025-03-29 20:59:26,759 - INFO -     Precision: 1.0000
+2025-03-29 20:59:26,759 - INFO -     Recall: 0.8865
+2025-03-29 20:59:26,759 - INFO -     F1-score: 0.9398
+2025-03-29 20:59:26,759 - INFO -   Identity_hate:
+2025-03-29 20:59:26,759 - INFO -     Precision: 0.9860
+2025-03-29 20:59:26,764 - INFO -     Recall: 0.7303
+2025-03-29 20:59:26,764 - INFO -     F1-score: 0.8391
+2025-03-29 20:59:26,765 - INFO - Creating OOD test data...
+2025-03-29 20:59:26,780 - INFO - Preprocessing texts...
+2025-03-29 20:59:26,821 - INFO - Extracting toxicity features...
+2025-03-29 20:59:26,826 - INFO - Detecting languages for texts...
+2025-03-29 20:59:26,876 - INFO - Language distribution: {'en': 2069, 'tl': 1658}
+2025-03-29 20:59:26,876 - INFO - Evaluating model on OOD test data...
+2025-03-29 20:59:26,877 - INFO - Evaluating on in-distribution data...
+2025-03-29 20:59:26,877 - INFO - Evaluating model...
+2025-03-29 20:59:26,877 - INFO - Using Monte Carlo dropout with 20 samples
+2025-03-29 21:13:52,103 - INFO - 
+Evaluation Results:
+2025-03-29 21:13:52,104 - INFO - Toxicity Classification Accuracy: 0.9414
+2025-03-29 21:13:52,104 - INFO - Category Macro-Average F1: 0.6619
+2025-03-29 21:13:52,104 - INFO - 
+Confusion Matrix (rows=true, columns=predicted):
+2025-03-29 21:13:52,105 - INFO -               | Pred Not Toxic | Pred Toxic | Pred Very Toxic |
+2025-03-29 21:13:52,105 - INFO - --------------+----------------+------------+-----------------|
+2025-03-29 21:13:52,105 - INFO - True Not Toxic |           2516 |         71 |               4 |
+2025-03-29 21:13:52,106 - INFO - True Toxic     |             86 |       2447 |              57 |
+2025-03-29 21:13:52,106 - INFO - True Very Toxic|              4 |        215 |            2054 |
+2025-03-29 21:13:52,106 - INFO - 
+Toxicity Class Metrics:
+2025-03-29 21:13:52,107 - INFO -   Not Toxic:
+2025-03-29 21:13:52,107 - INFO -     Precision: 0.9655
+2025-03-29 21:13:52,107 - INFO -     Recall: 0.9711
+2025-03-29 21:13:52,107 - INFO -     F1-score: 0.9683
+2025-03-29 21:13:52,108 - INFO -   Toxic:
+2025-03-29 21:13:52,108 - INFO -     Precision: 0.8954
+2025-03-29 21:13:52,108 - INFO -     Recall: 0.9448
+2025-03-29 21:13:52,108 - INFO -     F1-score: 0.9194
+2025-03-29 21:13:52,108 - INFO -   Very Toxic:
+2025-03-29 21:13:52,109 - INFO -     Precision: 0.9712
+2025-03-29 21:13:52,109 - INFO -     Recall: 0.9037
+2025-03-29 21:13:52,109 - INFO -     F1-score: 0.9362
+2025-03-29 21:13:52,109 - INFO - 
+Category Metrics:
+2025-03-29 21:13:52,110 - INFO -   Insult:
+2025-03-29 21:13:52,110 - INFO -     Precision: 0.9035
+2025-03-29 21:13:52,110 - INFO -     Recall: 0.4025
+2025-03-29 21:13:52,110 - INFO -     F1-score: 0.5569
+2025-03-29 21:13:52,111 - INFO -   Profanity:
+2025-03-29 21:13:52,111 - INFO -     Precision: 0.9406
+2025-03-29 21:13:52,111 - INFO -     Recall: 0.1863
+2025-03-29 21:13:52,111 - INFO -     F1-score: 0.3110
+2025-03-29 21:13:52,111 - INFO -   Threat:
+2025-03-29 21:13:52,111 - INFO -     Precision: 1.0000
+2025-03-29 21:13:52,112 - INFO -     Recall: 0.8865
+2025-03-29 21:13:52,112 - INFO -     F1-score: 0.9398
+2025-03-29 21:13:52,112 - INFO -   Identity_hate:
+2025-03-29 21:13:52,112 - INFO -     Precision: 0.9848
+2025-03-29 21:13:52,112 - INFO -     Recall: 0.7321
+2025-03-29 21:13:52,112 - INFO -     F1-score: 0.8399
+2025-03-29 21:13:52,113 - INFO - Evaluating on out-of-distribution data...
+2025-03-29 21:13:52,113 - INFO - Evaluating model...
+2025-03-29 21:13:52,113 - INFO - Using Monte Carlo dropout with 20 samples
+2025-03-29 21:21:15,492 - INFO - 
+Evaluation Results:
+2025-03-29 21:21:15,494 - INFO - Toxicity Classification Accuracy: 0.9536
+2025-03-29 21:21:15,494 - INFO - Category Macro-Average F1: 0.6605
+2025-03-29 21:21:15,495 - INFO - 
+Confusion Matrix (rows=true, columns=predicted):
+2025-03-29 21:21:15,495 - INFO -               | Pred Not Toxic | Pred Toxic | Pred Very Toxic |
+2025-03-29 21:21:15,495 - INFO - --------------+----------------+------------+-----------------|
+2025-03-29 21:21:15,495 - INFO - True Not Toxic |           1259 |         36 |               0 |
+2025-03-29 21:21:15,496 - INFO - True Toxic     |             44 |       1233 |              18 |
+2025-03-29 21:21:15,496 - INFO - True Very Toxic|              4 |         71 |            1062 |
+2025-03-29 21:21:15,496 - INFO - 
+Toxicity Class Metrics:
+2025-03-29 21:21:15,497 - INFO -   Not Toxic:
+2025-03-29 21:21:15,497 - INFO -     Precision: 0.9633
+2025-03-29 21:21:15,498 - INFO -     Recall: 0.9722
+2025-03-29 21:21:15,498 - INFO -     F1-score: 0.9677
+2025-03-29 21:21:15,498 - INFO -   Toxic:
+2025-03-29 21:21:15,498 - INFO -     Precision: 0.9201
+2025-03-29 21:21:15,499 - INFO -     Recall: 0.9521
+2025-03-29 21:21:15,499 - INFO -     F1-score: 0.9359
+2025-03-29 21:21:15,499 - INFO -   Very Toxic:
+2025-03-29 21:21:15,499 - INFO -     Precision: 0.9833
+2025-03-29 21:21:15,500 - INFO -     Recall: 0.9340
+2025-03-29 21:21:15,500 - INFO -     F1-score: 0.9581
+2025-03-29 21:21:15,500 - INFO - 
+Category Metrics:
+2025-03-29 21:21:15,500 - INFO -   Insult:
+2025-03-29 21:21:15,501 - INFO -     Precision: 0.9143
+2025-03-29 21:21:15,501 - INFO -     Recall: 0.4107
+2025-03-29 21:21:15,501 - INFO -     F1-score: 0.5668
+2025-03-29 21:21:15,502 - INFO -   Profanity:
+2025-03-29 21:21:15,502 - INFO -     Precision: 0.9486
+2025-03-29 21:21:15,502 - INFO -     Recall: 0.1663
+2025-03-29 21:21:15,502 - INFO -     F1-score: 0.2830
+2025-03-29 21:21:15,502 - INFO -   Threat:
+2025-03-29 21:21:15,502 - INFO -     Precision: 1.0000
+2025-03-29 21:21:15,502 - INFO -     Recall: 0.8935
+2025-03-29 21:21:15,502 - INFO -     F1-score: 0.9437
+2025-03-29 21:21:15,503 - INFO -   Identity_hate:
+2025-03-29 21:21:15,503 - INFO -     Precision: 0.9922
+2025-03-29 21:21:15,503 - INFO -     Recall: 0.7413
+2025-03-29 21:21:15,503 - INFO -     F1-score: 0.8486
+2025-03-29 21:21:15,503 - INFO - 
+Performance Gap Analysis:
+2025-03-29 21:21:15,504 - INFO - In-distribution accuracy: 0.9414
+2025-03-29 21:21:15,504 - INFO - Out-of-distribution accuracy: 0.9536
+2025-03-29 21:21:15,504 - INFO - Accuracy gap: -0.0122 (-1.3% drop)
+2025-03-29 21:21:15,504 - INFO - In-distribution category F1: 0.6619
+2025-03-29 21:21:15,504 - INFO - Out-of-distribution category F1: 0.6605
+2025-03-29 21:21:15,505 - INFO - Category F1 gap: 0.0014 (0.2% drop)
+2025-03-29 21:21:15,505 - INFO - In-distribution avg uncertainty: 0.2416
+2025-03-29 21:21:15,505 - INFO - Out-of-distribution avg uncertainty: 0.2424
+2025-03-29 21:21:15,505 - INFO - Uncertainty ratio: 1.00x
+2025-03-29 21:21:15,505 - INFO - Saving model and artifacts...
+2025-03-29 21:21:15,534 - INFO - Model saved to train_models\toxicity_model.pth
+2025-03-29 21:21:15,537 - INFO - Vocabulary saved to train_models\char_vocab.pkl
+2025-03-29 21:21:15,538 - INFO - Training metrics saved to train_models\training_metrics.json
+2025-03-29 21:21:15,539 - INFO - Training report saved to train_models\training_report.txt
