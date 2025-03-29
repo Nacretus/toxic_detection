@@ -1,0 +1,538 @@
+// ENHANCED TOXICITY DETECTION MODEL PSEUDOCODE
+
+// ==================== CONFIGURATION ====================
+Class Config:
+    // Data settings
+    TEXT_COLUMN = 'comment'
+    TOXICITY_COLUMN = 'toxicity_level'
+    CATEGORY_COLUMNS = ['insult', 'profanity', 'threat', 'identity_hate']
+    MAX_CHARS = 300
+    
+    // Vocabulary settings
+    ALPHABET = "abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+ =<>()[]{}ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    MAX_VOCAB_SIZE = 550
+    
+    // Model architecture settings
+    CHAR_EMB_DIM = 64
+    LSTM_HIDDEN_DIM = 96
+    DROPOUT_RATE = 0.35
+    CNN_CONFIGS = [...]  // Configuration for CNN layers
+    
+    // Training settings
+    BATCH_SIZE = 32
+    LEARNING_RATE = 0.0005
+    NUM_EPOCHS = 40
+    
+    // Classification thresholds
+    CATEGORY_THRESHOLDS = [0.65, 0.70, 0.65, 0.65]
+    
+    // Language-specific thresholds
+    LANGUAGE_THRESHOLDS = {
+        'en': { ... },
+        'tl': { ... }
+    }
+
+// ==================== PREPROCESSING ====================
+Function enhanced_text_preprocessing(text, max_len=300):
+    // Convert to lowercase
+    text = text.toLowerCase()
+    
+    // Replace URLs with special token
+    text = replaceURLs(text, "<URL>")
+    
+    // Replace emails with special token
+    text = replaceEmails(text, "<EMAIL>")
+    
+    // Normalize repeated characters
+    text = normalizeRepeatedChars(text)
+    
+    // Remove excessive whitespace
+    text = removeExcessiveWhitespace(text)
+    
+    // Truncate if needed
+    if length(text) > max_len:
+        text = truncate(text, max_len)
+    
+    return text
+
+Function detect_language(text):
+    // Check if text contains Tagalog markers
+    if containsTagalogMarkers(text):
+        return 'tl'
+    else:
+        return 'en'
+
+// ==================== FEATURE EXTRACTION ====================
+Class FeatureExtractor:
+    Function __init__():
+        this.toxic_keywords = loadToxicKeywords()
+        this.safe_words = loadSafeWords()
+        this.educational_patterns = [...]
+        this.feature_cache = {}
+    
+    Function extract_features(text):
+        // Check cache
+        if text in cache: return cached_features
+        
+        // Extract features
+        features = {}
+        
+        // ALL CAPS ratio
+        features['all_caps_ratio'] = calculateAllCapsRatio(text)
+        
+        // Toxic keyword detection
+        features['toxic_keyword_count'] = countToxicKeywords(text)
+        features['toxic_keyword_ratio'] = features['toxic_keyword_count'] / wordCount
+        
+        // Safe word detection
+        features['safe_word_count'] = countSafeWords(text)
+        features['safe_word_ratio'] = features['safe_word_count'] / wordCount
+        
+        // Special characters ratio
+        features['special_char_count'] = countSpecialChars(text)
+        features['special_char_ratio'] = features['special_char_count'] / length(text)
+        
+        // Educational content detection
+        features['is_educational'] = detectEducationalContent(text)
+        
+        // Text statistics
+        features['text_length'] = length(text)
+        features['word_count'] = countWords(text)
+        
+        // Save to cache and return
+        cache[text] = features
+        return features
+
+// ==================== CHARACTER VOCABULARY ====================
+Class EnhancedCharacterVocabulary:
+    Function __init__(fixed_alphabet=null, max_vocab_size=500):
+        // Initialize special tokens
+        this.pad_token = '<PAD>'
+        this.unk_token = '<UNK>'
+        this.char_to_idx = {special_tokens}
+        this.idx_to_char = {special_tokens}
+        this.n_chars = 4  // Count of special tokens
+    
+    Function build_from_texts(texts, min_count=2):
+        // Count characters in texts
+        for each text in texts:
+            for each char in text:
+                increment char_count[char]
+        
+        // Add frequent characters to vocabulary
+        for each (char, count) in sorted(char_count):
+            if char not in char_to_idx and count >= min_count:
+                add char to vocabulary
+    
+    Function encode_text(text, max_len=300):
+        // Convert text to sequence of character indices
+        indices = array of size max_len filled with PAD token index
+        
+        // Fill with actual character indices
+        for each char in text:
+            if char in char_to_idx:
+                add char_to_idx[char] to indices
+            else:
+                add char_to_idx[UNK] to indices
+        
+        return indices
+
+// ==================== DATASET ====================
+Class EnhancedToxicityDataset:
+    Function __init__(texts, labels, char_vocab, max_len=300, detect_lang=False):
+        this.texts = texts
+        this.labels = labels
+        this.max_len = max_len
+        
+        // Preprocess texts
+        this.processed_texts = preprocess all texts
+        
+        // Extract features for all texts
+        this.toxicity_features = extract features for all texts
+        
+        // Initialize vocabulary if not provided
+        if char_vocab is null:
+            this.char_vocab = new EnhancedCharacterVocabulary()
+            this.char_vocab.build_from_texts(this.processed_texts)
+        else:
+            this.char_vocab = char_vocab
+        
+        // Detect languages if enabled
+        if detect_lang:
+            this.languages = detect language for each text
+    
+    Function __getitem__(idx):
+        // Get processed text
+        processed_text = this.processed_texts[idx]
+        
+        // Get toxicity features
+        features = this.toxicity_features[idx]
+        
+        // Encode text to character indices
+        char_ids = this.char_vocab.encode_text(processed_text)
+        
+        return {
+            'char_ids': char_ids,
+            'labels': this.labels[idx],
+            'text': processed_text,
+            'features': features,
+            'language': this.languages[idx] if detect_lang else 'en'
+        }
+
+// ==================== MODEL ARCHITECTURE ====================
+Class EnhancedCNNLayer:
+    Function __init__(input_channels, large_features, small_features, kernel_size, etc.):
+        // Primary convolution with weight normalization
+        this.conv = Conv1d(input_channels, large_features, kernel_size)
+        
+        // Batch normalization
+        this.batch_norm = BatchNorm1d(large_features)
+        
+        // Pooling layer
+        this.pool = MaxPool1d(pool_size)
+        
+        // Dimension reduction with 1x1 convolution
+        this.reduce = Conv1d(large_features, small_features, 1)
+        
+        // Dropout
+        this.dropout = Dropout(dropout_rate)
+        
+        // Residual projection if needed
+        if input_channels != small_features:
+            this.residual_proj = Conv1d(input_channels, small_features, 1)
+    
+    Function forward(x):
+        // Store input for residual connection
+        residual = x
+        
+        // Apply convolution, batch norm, activation, dropout
+        x = this.conv(x)
+        x = this.batch_norm(x)
+        x = ReLU(x)
+        x = this.dropout(x)
+        
+        // Apply pooling if exists
+        if this.pool exists:
+            x = this.pool(x)
+        
+        // Apply dimension reduction
+        x = this.reduce(x)
+        
+        // Add residual connection
+        if shapes match:
+            x = x + residual
+        
+        return x
+
+Class EnhancedToxicityModel:
+    Function __init__(n_chars, n_classes=5, etc.):
+        // Character embedding layer
+        this.char_embedding = Embedding(n_chars, char_emb_dim)
+        
+        // Build CNN layers
+        this.cnn_layers = [EnhancedCNNLayer(...) for each config]
+        
+        // FC layer
+        this.fc = Linear(input_dim, 256)
+        
+        // BiLSTM
+        this.lstm = LSTM(input_size=256, hidden_size=lstm_hidden_dim, bidirectional=True)
+        
+        // Self-attention mechanism
+        this.attention = MultiheadAttention(embed_dim=lstm_hidden_dim*2, num_heads=4)
+        
+        // Feature processing layers
+        this.feature_fc = Linear(feature_dim, 64)
+        
+        // Output layers
+        this.fc_toxicity = Linear(combined_dim, 3)  // 3 toxicity levels
+        this.fc_category = Linear(combined_dim, 4)  // 4 toxicity categories
+    
+    Function forward(char_ids, toxicity_features):
+        // Character embeddings
+        char_embeds = this.char_embedding(char_ids)
+        
+        // Apply CNN layers
+        x = char_embeds.permute(0, 2, 1)  // [batch, channels, seq_len]
+        for each cnn_layer:
+            x = cnn_layer(x)
+        
+        // Reshape for LSTM
+        x = x.permute(0, 2, 1)  // [batch, seq_len, channels]
+        
+        // Apply FC and LSTM
+        x = this.fc(x)
+        lstm_out, _ = this.lstm(x)
+        
+        // Apply self-attention
+        attn_out, _ = this.attention(lstm_out, lstm_out, lstm_out)
+        
+        // Global max pooling
+        global_max_pool = max(lstm_out, dim=1)
+        
+        // Process toxicity features
+        feature_vec = this.feature_fc(toxicity_features)
+        
+        // Combine LSTM and feature outputs
+        combined = concatenate(global_max_pool, feature_vec)
+        
+        // Final output layers
+        toxicity_output = this.fc_toxicity(combined)
+        category_output = this.fc_category(combined)
+        
+        return toxicity_output, category_output
+
+// ==================== CLASSIFIER CHAIN ====================
+Class EnhancedClassifierChain:
+    Function __init__(base_model):
+        this.base_model = base_model
+        
+        // Chain link 1: Binary toxicity classifier
+        this.toxicity_binary = Linear(combined_dim, 1)
+        
+        // Chain link 2: Category classifiers
+        this.category_insult = Linear(combined_dim + 1, 1)
+        this.category_profanity = Linear(combined_dim + 1, 1)
+        this.category_threat = Linear(combined_dim + 1, 1)
+        this.category_identity_hate = Linear(combined_dim + 1, 1)
+        
+        // Chain link 3: Severity classifier
+        this.severity = Linear(combined_dim + 1 + 4, 1)
+    
+    Function forward(char_ids, toxicity_features):
+        // Extract features from base model
+        base_features = get features from base_model
+        
+        // Chain link 1: Binary toxicity classification
+        toxicity_bin_logits = this.toxicity_binary(base_features)
+        toxicity_bin_probs = sigmoid(toxicity_bin_logits)
+        
+        // Chain link 2: Category classification
+        features_with_toxicity = concatenate(base_features, toxicity_bin_probs)
+        
+        insult_logits = this.category_insult(features_with_toxicity)
+        profanity_logits = this.category_profanity(features_with_toxicity)
+        threat_logits = this.category_threat(features_with_toxicity)
+        identity_hate_logits = this.category_identity_hate(features_with_toxicity)
+        
+        // Get probabilities
+        insult_probs = sigmoid(insult_logits)
+        profanity_probs = sigmoid(profanity_logits)
+        threat_probs = sigmoid(threat_logits)
+        identity_hate_probs = sigmoid(identity_hate_logits)
+        
+        // Chain link 3: Severity classification
+        features_for_severity = concatenate(base_features, toxicity_bin_probs, 
+                                          [insult_probs, profanity_probs, threat_probs, identity_hate_probs])
+        
+        severity_logits = this.severity(features_for_severity)
+        severity_probs = sigmoid(severity_logits)
+        
+        return all outputs
+    
+    Function predict(char_ids, toxicity_features, thresholds, language='en'):
+        // Get raw outputs
+        outputs = this.forward(char_ids, toxicity_features)
+        
+        // Get language-specific thresholds
+        if language in LANGUAGE_THRESHOLDS:
+            thresholds = LANGUAGE_THRESHOLDS[language]
+        
+        // Apply thresholds for final predictions
+        is_toxic = (outputs.toxicity_binary_probs > thresholds.toxicity)
+        
+        insult = (outputs.category_probs.insult > thresholds.insult) * is_toxic
+        profanity = (outputs.category_probs.profanity > thresholds.profanity) * is_toxic
+        threat = (outputs.category_probs.threat > thresholds.threat) * is_toxic
+        identity_hate = (outputs.category_probs.identity_hate > thresholds.identity_hate) * is_toxic
+        
+        // Determine severity
+        severity = (outputs.severity_probs > thresholds.severity)
+        
+        // Determine final toxicity level (0=not toxic, 1=toxic, 2=very toxic)
+        toxicity_level = 0 for all
+        toxicity_level[is_toxic] = 1
+        toxicity_level[is_toxic AND severity] = 2
+        
+        return predictions
+
+// ==================== UNCERTAINTY ESTIMATION ====================
+Class MCDropoutChainModel:
+    Function __init__(chain_model):
+        this.chain_model = chain_model
+    
+    Function enable_dropout():
+        // Enable dropout in inference mode for all layers
+        set all dropout layers to training mode
+    
+    Function predict_with_uncertainty(char_ids, toxicity_features, num_samples=30):
+        // Enable dropout
+        this.enable_dropout()
+        
+        // Run multiple forward passes
+        for i = 1 to num_samples:
+            outputs = this.chain_model(char_ids, toxicity_features)
+            store probabilities for this sample
+        
+        // Calculate mean predictions and uncertainties
+        mean_toxicity_probs = average of all toxicity_probs samples
+        toxicity_uncertainty = standard deviation of toxicity_probs samples
+        
+        // Apply thresholds to mean predictions
+        apply thresholds to get final predictions
+        
+        return predictions and uncertainties
+
+// ==================== TRAINING FUNCTIONS ====================
+Function train_enhanced_classifier_chain(model, train_loader, val_loader, etc.):
+    // Setup loss functions
+    toxicity_criterion = BCEWithLogitsLoss()
+    category_criteria = FocalLoss for each category
+    
+    // Optimizer
+    optimizer = AdamW(model.parameters(), lr=learning_rate)
+    
+    // Learning rate scheduler
+    scheduler = OneCycleLR or ReduceLROnPlateau
+    
+    // Training loop
+    for epoch = 1 to num_epochs:
+        // Training phase
+        model.train()
+        for each batch in train_loader:
+            // Get inputs and labels
+            char_ids = batch.char_ids
+            toxicity_level = batch.labels[:, 0]
+            categories = batch.labels[:, 1:5]
+            
+            // Convert toxicity level to binary and severity
+            binary_toxicity = (toxicity_level > 0)
+            severity = (toxicity_level == 2)
+            
+            // Zero gradients
+            optimizer.zero_grad()
+            
+            // Forward pass
+            outputs = model(char_ids, toxicity_features)
+            
+            // Calculate losses
+            toxicity_loss = toxicity_criterion(outputs.toxicity_binary, binary_toxicity)
+            category_loss = sum of category losses
+            severity_loss = severity_criterion(outputs.severity_logits, severity)
+            
+            // Combined loss
+            loss = 1.5 * toxicity_loss + category_loss + severity_loss
+            
+            // Backward pass and optimize
+            loss.backward()
+            optimizer.step()
+            
+            // Update scheduler
+            scheduler.step()
+        
+        // Validation phase
+        model.eval()
+        calculate validation metrics
+        
+        // Early stopping check
+        if val_loss < best_val_loss:
+            save best model
+            reset patience
+        else:
+            increment patience
+            
+        if patience >= early_stopping_patience:
+            break
+    
+    return trained model
+
+Function evaluate_model(model, dataloader, mc_dropout=False):
+    // Create MC dropout model if needed
+    if mc_dropout:
+        mc_model = MCDropoutChainModel(model)
+    
+    // Evaluation loop
+    for each batch in dataloader:
+        // Make predictions
+        if mc_dropout:
+            predictions = mc_model.predict_with_uncertainty(char_ids, toxicity_features)
+        else:
+            predictions = model.predict(char_ids, toxicity_features)
+        
+        // Track predictions and labels
+        store predictions and true labels
+    
+    // Calculate metrics
+    accuracy = accuracy_score(all_toxicity_labels, all_toxicity_preds)
+    category_f1 = f1_score for each category
+    
+    // Analyze errors
+    error_analysis = analyze_errors(texts, preds, labels, etc.)
+    
+    return evaluation results
+
+// ==================== PREDICTION FUNCTIONS ====================
+Function predict_toxicity(model, texts, char_vocab, batch_size=32, use_mc_dropout=False):
+    // Process in batches
+    for each batch of texts:
+        // Preprocess texts
+        preprocessed_texts = preprocess each text
+        
+        // Extract features
+        features = extract features for each text
+        
+        // Encode texts
+        char_ids = encode each text using char_vocab
+        
+        // Detect languages
+        languages = detect language for each text
+        
+        // Get predictions
+        if use_mc_dropout:
+            predictions = mc_model.predict_with_uncertainty(char_ids, features)
+        else:
+            predictions = model.predict(char_ids, features)
+        
+        // Format results
+        for each prediction:
+            create result dictionary with toxicity level, probabilities, etc.
+    
+    return results
+
+// ==================== TRAINING PIPELINE ====================
+Function train_toxicity_model(data_path, output_dir, num_epochs=40):
+    // Step 1: Load data
+    texts, labels = load_data_from_csv(data_path)
+    
+    // Step 2: Create data loaders
+    train_loader, val_loader, test_loader, char_vocab = create_data_loaders(texts, labels)
+    
+    // Step 3: Create model
+    base_model = EnhancedToxicityModel(n_chars=char_vocab.n_chars, etc.)
+    chain_model = EnhancedClassifierChain(base_model)
+    
+    // Step 4: Train model
+    trained_model = train_enhanced_classifier_chain(chain_model, train_loader, val_loader)
+    
+    // Step 5: Evaluate model
+    test_results = evaluate_model(trained_model, test_loader)
+    
+    // Step 6: Save model and artifacts
+    save model, vocabulary, and metrics
+    
+    return trained_model, char_vocab, evaluation_results
+
+// ==================== MAIN FUNCTION ====================
+Function main():
+    parse command line arguments
+    
+    if mode == 'train':
+        train_toxicity_model(data_path, output_dir, num_epochs)
+    
+    elif mode == 'evaluate':
+        load model and vocabulary
+        evaluate_model(model, test_loader)
+    
+    elif mode == 'interactive':
+        load model and vocabulary
+        interactive_prediction(model, char_vocab)
